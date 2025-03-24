@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>REGISTRATION FORM</h2>
+        </div>
+        <form class="form" id="form">
+            <div class="form-control">
+                <label>Username</label>
+                <input type="text" name="" id="Username" placeholder="Enter your Name" autocomplete="off">
+            </div>
+            <div class="form-control">
+                <label>Email</label>
+                <input type="text" name="" id="Email" placeholder="Enter your Email Id" autocomplete="off">
+            </div>
+            <div class="form-control">
+                <label>Phone Number</label>
+                <input type="text" name="" id="Phone" placeholder="Enter your Phone Number" autocomplete="off">
+            </div>
+            <div class="form-control">
+                <label>Password</label>
+                <input type="password" name="" id="Password" placeholder="Enter your Password" autocomplete="off">    
+            </div>
+            <div class="form-control">
+                <label>Confirm Password</label>
+                <input type="password" name="" id="cPassword" placeholder="Enter your Password again" autocomplete="off">
+            </div>
+            <input type="submit" value="Submit" class="btn">
+            <!-- Success or Error Message will be shown here -->
+            <div id="form-message"></div>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        const form = document.getElementById('form');
+        const Username = document.getElementById('Username');
+        const Email = document.getElementById('Email');
+        const phone = document.getElementById('Phone');
+        const Password = document.getElementById('Password');
+        const cPassword = document.getElementById('cPassword');
+        const formMessage = document.getElementById('form-message');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent form submission
+            validate(); // Call the validate function
+        });
+
+        const validate = () => {
+            const usernameValue = Username.value.trim();
+            const emailValue = Email.value.trim();
+            const phoneValue = phone.value.trim();
+            const passwordValue = Password.value.trim();
+            const cPasswordValue = cPassword.value.trim();
+
+            let isValid = true; // Flag to check if all fields are valid
+
+            // Clear previous error messages
+            clearErrorMessages();
+
+            // Validate Username
+            if (usernameValue !== 'prathmesh') {
+                setError(Username, 'Try Again');
+                isValid = false;
+            }
+
+            // Validate Email
+            if (emailValue !== 'prathmeshmore952@gmail.com') {
+                setError(Email, 'Try Again');
+                isValid = false;
+            }
+            if (phoneValue !== '7058054028') {
+                setError(phone, 'Try Again');
+                isValid = false;
+            }
+            // Validate Password
+            if (passwordValue !== 'more123') {
+                setError(Password, 'Try Again');
+                isValid = false;
+            }
+
+            // Validate Confirm Password
+            if (cPasswordValue !== 'more123') {
+                setError(cPassword, 'Try Again');
+                isValid = false;
+            }
+            // If all fields are valid, you can submit the form or proceed further
+            if (isValid) {
+                showMessage('Form submitted successfully!', 'success');
+            } else {
+                showMessage('Please fix the errors above.', 'error');
+            }
+        };
+
+        // Helper function to show error message
+        const setError = (element, message) => {
+            const parent = element.parentElement;
+            const error = document.createElement('small');
+            error.classList.add('error');
+            error.innerText = message;
+            parent.appendChild(error);
+        };
+
+        // Helper function to clear any previous error messages
+        const clearErrorMessages = () => {
+            const errorMessages = document.querySelectorAll('.error');
+            errorMessages.forEach((error) => {
+                error.remove();
+            });
+        };
+
+        // Helper function to validate email format
+        const isValidEmail = (email) => {
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            return emailRegex.test(email);
+        };
+
+        // Helper function to validate phone number format (basic validation for 10 digits)
+        const isValidPhone = (phone) => {
+            const phoneRegex = /^\d{10}$/; // Example: 1234567890
+            return phoneRegex.test(phone);
+        };
+
+        // Helper function to show messages (success/error)
+        const showMessage = (message, type) => {
+            formMessage.textContent = message;
+            formMessage.classList.remove('success', 'error');
+            formMessage.classList.add(type);
+        };
+    </script>
+</body>
+</html>
